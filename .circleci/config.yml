@@ -13,4 +13,3 @@ jobs:
       - run: echo $MY_VAR
       - run: node --version
       - run: npm install
-      - run: npm run start
