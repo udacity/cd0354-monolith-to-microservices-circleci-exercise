@@ -2,13 +2,14 @@
 version: 2.1
 
 jobs:
-  build:
-    docker:
-      - image: docker:20.10.11
-      # - image: cimg/base:2021.04
+  build:            # job name
+    docker:         # executor type
+      - image: cimg/base:current # Docker image that installs Docker and has Git,
     working_directory: ~/app
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.14
       - run:
           name: Install dependencies
           command: echo "No need to install anything. \n Just build and push the Docker image."
@@ -18,6 +19,6 @@ jobs:
             echo "Inside the Build and push Docker image step"
             docker --version # print the version for logging
             docker build -t sudkul/sample-express-app .        
-            docker tag sample-express-app:latest sudkul/sample-express-app:1.0.0
+            docker tag sudkul/sample-express-app sudkul/sample-express-app:1.0.0
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push sudkul/sample-express-app
+            docker push sudkul/sample-express-app:1.0.0
