@@ -1,0 +1,19 @@
+# .circleci/config.yml file
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: docker:20.10.11
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: echo "No need to install anything. \n Just build and push the Docker image."
+      - run:
+          name: Build and push Docker image
+          command: |
+            echo "Inside the Build and push Docker image step"
+            docker --version # print the version for logging
+            docker build -t sudkul/sample-express-app .
